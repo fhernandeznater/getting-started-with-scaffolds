@@ -1,5 +1,6 @@
 class MoviesController < ApplicationController
   def new
+    @the_movie = Movie.new
     render template: "movies/new"
   end
 
@@ -21,7 +22,7 @@ class MoviesController < ApplicationController
 
     matching_movies = Movie.where({ :id => the_id })
 
-    @the_movie = matching_movies.first
+    @the_movie = matching_movies[0]
 
     render({ :template => "movies/show" })
   end
@@ -36,7 +37,7 @@ class MoviesController < ApplicationController
       @the_movie.save
       redirect_to("/movies", { :notice => "Movie was successfully created." })
     else
-      render template: "movies/with_errors"
+      render template: "movies/new"
     end
   end
 
